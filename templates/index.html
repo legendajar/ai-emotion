@@ -57,14 +57,15 @@
 
         <div class="col-md-8 col-sm-12">
           <!--mood capture code-->
-          {% if emotion%}
+          {% if recommendedPlaylist %}
+          {% if recommendedPlaylist.currentMood%}
           <div class="alert alert-success" role="alert">
-            Your select mood is {{emotion}}
+            Your select mood is {{recommendedPlaylist.currentMood}}
           </div>
           {% endif %}
 
           <!--playlist code-->
-          {% if playlist %}
+          {% if recommendedPlaylist.playlists %}
           <h2>Playlist</h2>
           <table class="table table-striped">
             <thead>
@@ -75,7 +76,7 @@
             </thead>
             <tbody>
              
-              {% for uri, name, artists in playlist %}
+              {% for uri, name, artists in recommendedPlaylist.playlists %}
               <tr>
                 <td>
                   <a href="#" onclick="playSong('{{ uri }}')">{{ name }}</a>
@@ -93,10 +94,7 @@
             No songs in playlist.
           </div>
           {% endif %}
-          
-
-
-
+          {% endif %}
         </div>
       </div>
     </div>

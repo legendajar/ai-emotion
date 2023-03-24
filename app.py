@@ -72,16 +72,19 @@ def getSongs():
     for track in tracks:
         name = track["track"]["name"]
         uri = track["track"]["preview_url"]
-        #uri  = re.sub(r'spotify:track:', 'https://open.spotify.com/track/', song_uri)
 
         artists = ", ".join([artist["name"] for artist in track["track"]["artists"]])
         if uri and artists:
             playlist.append((uri, name, artists))
 
     random_playlists = random.sample(playlist, 8)
-    return render_template('index.html', playlist=random_playlists)
-   # return render_template("index.html", emotion=emotion)
-    #console.log("hihihi--->", df1)
+
+    recommendedPlaylist = {
+        'currentMood': emotion,
+        'playlists': random_playlists
+    }
+
+    return render_template('index.html', recommendedPlaylist=recommendedPlaylist)
 
 
 if __name__ == "__main__":
