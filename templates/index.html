@@ -54,12 +54,49 @@
             >
           </div>
         </div>
+
         <div class="col-md-8 col-sm-12">
+          <!--mood capture code-->
           {% if emotion%}
           <div class="alert alert-success" role="alert">
             Your select mood is {{emotion}}
           </div>
           {% endif %}
+
+          <!--playlist code-->
+          {% if playlist %}
+          <h2>Playlist</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Track</th>
+                <th>Artist(s)</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+              {% for uri, name, artists in playlist %}
+              <tr>
+                <td>
+                  <a href="#" onclick="playSong('{{ uri }}')">{{ name }}</a>
+                  <audio id="{{ uri }}">
+                    <source src="{{ uri }}" type="audio/mpeg">
+                  </audio>
+                </td>
+                <td>{{ artists }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+          </table>
+          {% else %}
+          <div class="alert alert-info" role="alert">
+            No songs in playlist.
+          </div>
+          {% endif %}
+          
+
+
+
         </div>
       </div>
     </div>
@@ -70,5 +107,25 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
+
+    
+    <script type="text/javascript">
+      var currentAudio = null;
+      function playSong(uri) {
+        var audio = document.getElementById(uri);
+
+        if (currentAudio !== null && currentAudio !== audio) {
+            currentAudio.pause();
+        }
+        if (audio.paused) {
+          audio.play();
+          currentAudio = audio;
+        } else {
+          audio.pause();
+          currentAudio = null;
+
+        }
+      }
+    </script>
   </body>
 </html>
