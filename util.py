@@ -8,7 +8,7 @@ import random
 import os
 import re
 import spotipy
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyClientCredentials
 
 global cam
